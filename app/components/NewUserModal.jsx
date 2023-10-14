@@ -34,7 +34,7 @@ export default function App(props) {
 
   useEffect(() => {
     setCurrentGroup(props.groups.find(group => group.id === selectedGroup));
-  }, [selectedGroup]);
+  }, [selectedGroup, props.group]);
 
   const saveUser = async () => {
     await fetch('/api/newUser', {

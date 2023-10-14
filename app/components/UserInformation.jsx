@@ -20,7 +20,7 @@ export default function App(props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedGroup, setSelectedGroup] = useState(props.userGroup.id);
   const [selectedRights, setSelectedRights] = useState([]);
-  const [currentGroup, setCurrentGroup] = useState();
+  const [currentGroup, setCurrentGroup] = useState(props.userGroup);
 
   const [username, setUsername] = useState(props.name);
 
@@ -29,12 +29,8 @@ export default function App(props) {
   };
 
   useEffect(() => {
-    setCurrentGroup(props.userGroup);
-  }, []);
-
-  useEffect(() => {
     setCurrentGroup(props.groups.find(group => group.id === selectedGroup));
-  }, [selectedGroup]);
+  }, [selectedGroup, props.groups]);
 
   const editUser = async () => {
     await fetch(`/api/editUser`, {

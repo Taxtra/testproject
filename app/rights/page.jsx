@@ -26,7 +26,7 @@ const Rights = async () => {
       <div className="flex items-center justify-center flex-1 h-screen ml-64">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {rights.map(right => (
-            <RightCard name={right.name} id={right.id} />
+            <RightCard name={right.name} id={right.id} key={right.id} />
           ))}
         </div>
       </div>
