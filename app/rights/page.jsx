@@ -5,9 +5,12 @@ import NewRightModal from '../components/NewRightModal';
 
 const getRights = async () => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getRights`,
+      {
+        cache: 'no-store',
+      }
+    );
 
     const rights = await res?.json();
     return rights;

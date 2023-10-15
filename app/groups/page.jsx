@@ -5,9 +5,12 @@ import NewGroupModal from '../components/NewGroupModal';
 
 const getGroups = async () => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/getGroups`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getGroups`,
+      {
+        cache: 'no-store',
+      }
+    );
 
     const groups = await res?.json();
     return groups;
@@ -18,9 +21,12 @@ const getGroups = async () => {
 
 const getRights = async () => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getRights`,
+      {
+        cache: 'no-store',
+      }
+    );
 
     const rights = await res.json();
     return rights;
