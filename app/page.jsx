@@ -62,7 +62,7 @@ export default async function Home() {
               name={user.username}
               userRights={user.rights}
               id={user.id}
-              group={groups.find(group => group.id === user.groupId)}
+              group={groups?.find(group => group.id === user.groupId)}
               groups={groups}
               rights={rights}
             />
