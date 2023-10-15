@@ -16,11 +16,7 @@ export default function App(props) {
       <CardHeader className="flex justify-center">
         <h1 className="font-semibold text-center">{props.name}</h1>
       </CardHeader>
-      <CardFooter className="gap-3 flex justify-between">
-        <div className="flex gap-1">
-          <p className="font-semibold text-default-400 text-small">4</p>
-          <p className=" text-default-400 text-small">Rechte</p>
-        </div>
+      <CardFooter className="gap-3 flex justify-end">
         <RightInformation name={props.name} id={props.id} />
       </CardFooter>
     </Card>
