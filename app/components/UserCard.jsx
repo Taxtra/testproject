@@ -20,6 +20,7 @@ export default function App(props) {
             radius="full"
             size="lg"
             src={`https://api.dicebear.com/7.x/initials/svg?seed=${props.name}`}
+            className="min-w-[50px]"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
             <h1 className="font-semibold">{props.name}</h1>
