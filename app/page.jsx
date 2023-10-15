@@ -3,36 +3,42 @@ import UserCard from './components/UserCard';
 import NewUserModal from './components/NewUserModal';
 
 const getUsers = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/getUser`, {
-    cache: 'no-store',
-  });
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/getUser`, {
+      cache: 'no-store',
+    });
 
-  if (!res.ok) return;
-
-  const users = await res?.json();
-  return users;
+    const users = await res?.json();
+    return users;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getGroups = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/getGroups`, {
-    cache: 'no-store',
-  });
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/getGroups`, {
+      cache: 'no-store',
+    });
 
-  if (!res.ok) return;
-
-  const groups = await res?.json();
-  return groups;
+    const groups = await res?.json();
+    return groups;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getRights = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
-    cache: 'no-store',
-  });
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
+      cache: 'no-store',
+    });
 
-  if (!res.ok) return;
-
-  const rights = await res?.json();
-  return rights;
+    const rights = await res?.json();
+    return rights;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export default async function Home() {
@@ -50,7 +56,7 @@ export default async function Home() {
       </div>
       <div className="flex items-center justify-center flex-1 h-screen ml-64">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {users.map(user => (
+          {users?.map(user => (
             <UserCard
               key={user.id}
               name={user.username}

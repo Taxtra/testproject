@@ -4,23 +4,29 @@ import GroupCard from '../components/GroupCard';
 import NewGroupModal from '../components/NewGroupModal';
 
 const getGroups = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/getGroups`, {
-    cache: 'no-store',
-  });
-  if (!res.ok) return;
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/getGroups`, {
+      cache: 'no-store',
+    });
 
-  const groups = await res?.json();
-  return groups;
+    const groups = await res?.json();
+    return groups;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const getRights = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
-    cache: 'no-store',
-  });
-  if (!res.ok) return;
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
+      cache: 'no-store',
+    });
 
-  const rights = await res.json();
-  return rights;
+    const rights = await res.json();
+    return rights;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const Groups = async () => {
@@ -37,7 +43,7 @@ const Groups = async () => {
       </div>
       <div className="flex items-center justify-center flex-1 h-screen ml-64">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {groups.map(group => (
+          {groups?.map(group => (
             <GroupCard
               name={group.name}
               groupRights={group.rights}
