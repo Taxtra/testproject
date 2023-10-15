@@ -18,7 +18,7 @@ import { toast } from 'sonner';
 
 export default function App(props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedGroup, setSelectedGroup] = useState(props.userGroup.id);
+  const [selectedGroup, setSelectedGroup] = useState(props.userGroup?.id);
   const [selectedRights, setSelectedRights] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(props.userGroup);
 
