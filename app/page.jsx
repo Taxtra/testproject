@@ -7,6 +7,8 @@ const getUsers = async () => {
     cache: 'no-store',
   });
 
+  if (!res.ok) return;
+
   const users = await res?.json();
   return users;
 };
@@ -16,6 +18,8 @@ const getGroups = async () => {
     cache: 'no-store',
   });
 
+  if (!res.ok) return;
+
   const groups = await res?.json();
   return groups;
 };
@@ -24,6 +28,8 @@ const getRights = async () => {
   const res = await fetch(`${process.env.BASE_URL}/api/getRights`, {
     cache: 'no-store',
   });
+
+  if (!res.ok) return;
 
   const rights = await res?.json();
   return rights;
