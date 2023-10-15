@@ -105,10 +105,10 @@ export default function App(props) {
                 </RadioGroup>
                 <CheckboxGroup
                   label="Gruppenberechtigungen"
-                  value={currentGroup.rights.map(right => right.id)}
+                  value={currentGroup?.rights.map(right => right.id)}
                   isDisabled
                 >
-                  {currentGroup.rights.map(right => (
+                  {currentGroup?.rights.map(right => (
                     <Checkbox value={right.id} key={right.id}>
                       {right.name}
                     </Checkbox>
