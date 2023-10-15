@@ -8,7 +8,7 @@ const getGroups = async () => {
     cache: 'no-store',
   });
 
-  const groups = await res.json();
+  const groups = await res?.json();
   return groups;
 };
 
@@ -17,7 +17,7 @@ const getRights = async () => {
     cache: 'no-store',
   });
 
-  const rights = await res.json();
+  const rights = await res?.json();
   return rights;
 };
 

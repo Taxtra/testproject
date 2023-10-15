@@ -8,7 +8,7 @@ const getRights = async () => {
     cache: 'no-store',
   });
 
-  const rights = await res.json();
+  const rights = await res?.json();
   return rights;
 };
 
