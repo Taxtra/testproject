@@ -11,12 +11,9 @@ import {
 
 const getUsers = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getUser`,
-      {
-        cache: 'no-store',
-      }
-    );
+    const res = await fetch(`/api/getUser`, {
+      cache: 'no-store',
+    });
 
     const users = await res?.json();
     return users;
@@ -27,12 +24,9 @@ const getUsers = async () => {
 
 const getGroups = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getGroups`,
-      {
-        cache: 'no-store',
-      }
-    );
+    const res = await fetch(`/api/getGroups`, {
+      cache: 'no-store',
+    });
 
     const groups = await res?.json();
     return groups;
@@ -43,12 +37,9 @@ const getGroups = async () => {
 
 const getRights = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getRights`,
-      {
-        cache: 'no-store',
-      }
-    );
+    const res = await fetch(`/api/getRights`, {
+      cache: 'no-store',
+    });
 
     const rights = await res?.json();
     return rights;
