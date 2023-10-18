@@ -14,6 +14,7 @@ import {
   Checkbox,
   CheckboxGroup,
 } from '@nextui-org/react';
+import { useGlobalContext } from '../Context/data';
 
 import { toast } from 'sonner';
 
@@ -25,6 +26,8 @@ export default function App(props) {
   const [isInvalidRights, setIsInvalidRights] = useState(false);
 
   const [groupName, setGroupName] = useState('');
+
+  const { rights } = useGlobalContext();
 
   const handleChange = event => {
     setGroupName(event.target.value);
@@ -99,7 +102,7 @@ export default function App(props) {
                   }
                   onValueChange={setSelected}
                 >
-                  {props.rights.map(right => (
+                  {rights.map(right => (
                     <Checkbox value={right.id} key={right.id}>
                       {right.name}
                     </Checkbox>
