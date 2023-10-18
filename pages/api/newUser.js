@@ -1,6 +1,9 @@
 import prisma from '../../prisma/client';
 
 export default async function handler(req, res) {
+  if (!req.body.username || !req.body.groupId)
+    res.status(500).json('Ein fehler ist aufgetreten');
+
   if (req.method === 'POST') {
     try {
       //POST new Right
@@ -18,6 +21,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json(newUser);
     } catch (error) {
+      console.log(error);
       return res.status(500).json(error);
     }
   }

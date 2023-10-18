@@ -18,14 +18,16 @@ import {
 import { toast } from 'sonner';
 
 export default function App(props) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [selected, setSelected] = useState([]);
+
+  const [isInvalidName, setIsInvalidName] = useState(false);
+  const [isInvalidRights, setIsInvalidRights] = useState(false);
 
   const [groupName, setGroupName] = useState('');
 
   const handleChange = event => {
     setGroupName(event.target.value);
-    console.log(selected);
   };
 
   const saveGroup = async () => {
@@ -54,6 +56,21 @@ export default function App(props) {
     });
   };
 
+  const handleSubmit = () => {
+    if (!groupName) {
+      return setIsInvalidName(true);
+    }
+    if (selected.length === 0) {
+      return setIsInvalidRights(true);
+    }
+    setIsInvalidName(false);
+    setIsInvalidRights(false);
+    saveGroup();
+    onClose();
+    setGroupName('');
+    setSelected([]);
+  };
+
   return (
     <>
       <Button onPress={onOpen} className="bg-sky-950">
@@ -70,10 +87,16 @@ export default function App(props) {
                 <Input
                   type="text"
                   label="Gruppen Name"
+                  isInvalid={isInvalidName}
+                  errorMessage={isInvalidName && 'Bitte gebe einen Namen ein'}
                   onChange={handleChange}
                 />
                 <CheckboxGroup
                   label="Brechtigungen auswählen"
+                  isInvalid={isInvalidRights}
+                  errorMessage={
+                    isInvalidRights && 'Bitte wähle mindestens ein Recht aus'
+                  }
                   onValueChange={setSelected}
                 >
                   {props.rights.map(right => (
@@ -87,12 +110,7 @@ export default function App(props) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Abbrechen
                 </Button>
-                <Button
-                  color="primary"
-                  variant="light"
-                  onPress={onClose}
-                  onClick={saveGroup}
-                >
+                <Button color="primary" variant="light" onClick={handleSubmit}>
                   Gruppe speichern
                 </Button>
               </ModalFooter>

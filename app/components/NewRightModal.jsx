@@ -16,8 +16,10 @@ import {
 import { toast } from 'sonner';
 
 export default function App(props) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [newRight, setNewRight] = useState('');
+
+  const [isInvalid, setIsInvalid] = useState(false);
 
   const handleChange = event => {
     setNewRight(event.target.value);
@@ -42,6 +44,16 @@ export default function App(props) {
     });
   };
 
+  const handleSubmit = () => {
+    if (!newRight) {
+      return setIsInvalid(true);
+    }
+    setIsInvalid(false);
+    saveRight();
+    onClose();
+    setNewRight('');
+  };
+
   return (
     <>
       <Button onPress={onOpen} className="bg-sky-950">
@@ -55,18 +67,19 @@ export default function App(props) {
                 <h1 className="font-bold">Neues Recht erstellen</h1>
               </ModalHeader>
               <ModalBody>
-                <Input type="text" label="Recht Name" onChange={handleChange} />
+                <Input
+                  type="text"
+                  label="Recht Name"
+                  isInvalid={isInvalid}
+                  errorMessage={isInvalid && 'Bitte gebe einen Namen ein'}
+                  onChange={handleChange}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Abbrechen
                 </Button>
-                <Button
-                  color="primary"
-                  variant="light"
-                  onPress={onClose}
-                  onClick={saveRight}
-                >
+                <Button color="primary" variant="light" onClick={handleSubmit}>
                   Recht speichern
                 </Button>
               </ModalFooter>

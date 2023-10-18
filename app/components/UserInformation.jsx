@@ -17,10 +17,12 @@ import {
 import { toast } from 'sonner';
 
 export default function App(props) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [selectedGroup, setSelectedGroup] = useState(props.userGroup?.id);
   const [selectedRights, setSelectedRights] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(props.userGroup);
+
+  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
 
   const [username, setUsername] = useState(props.name);
 
@@ -73,6 +75,18 @@ export default function App(props) {
     });
   };
 
+  const handleSubmit = () => {
+    if (!username) {
+      return setIsInvalidUsername(true);
+    }
+    setIsInvalidUsername(false);
+    editUser();
+    onClose();
+    setUsername('');
+    setSelectedGroup([]);
+    setSelectedRights([]);
+  };
+
   return (
     <>
       <Button onPress={onOpen} variant="light">
@@ -90,6 +104,10 @@ export default function App(props) {
                   type="text"
                   label="Username"
                   defaultValue={props.name}
+                  isInvalid={isInvalidUsername}
+                  errorMessage={
+                    isInvalidUsername && 'Bitte gebe einen Username ein'
+                  }
                   onChange={handleChange}
                 />
                 <RadioGroup
@@ -137,12 +155,7 @@ export default function App(props) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Abbrechen
                 </Button>
-                <Button
-                  color="primary"
-                  variant="light"
-                  onPress={onClose}
-                  onClick={editUser}
-                >
+                <Button color="primary" variant="light" onClick={handleSubmit}>
                   User speichern
                 </Button>
               </ModalFooter>

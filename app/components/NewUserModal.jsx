@@ -20,9 +20,12 @@ import {
 import { toast } from 'sonner';
 
 export default function App(props) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [selectedGroup, setSelectedGroup] = useState([]);
   const [selectedRights, setSelectedRights] = useState([]);
+
+  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
+  const [isInvalidGroup, setIsInvalidGroup] = useState(false);
 
   const [currentGroup, setCurrentGroup] = useState();
 
@@ -57,6 +60,22 @@ export default function App(props) {
     });
   };
 
+  const handleSubmit = () => {
+    if (!username) {
+      return setIsInvalidUsername(true);
+    }
+    if (!currentGroup) {
+      return setIsInvalidGroup(true);
+    }
+    setIsInvalidUsername(false);
+    setIsInvalidGroup(false);
+    saveUser();
+    onClose();
+    setUsername('');
+    setSelectedGroup([]);
+    setSelectedRights([]);
+  };
+
   return (
     <>
       <Button onPress={onOpen} className="bg-sky-950">
@@ -70,9 +89,19 @@ export default function App(props) {
                 <h1 className="font-bold">Neuen User erstellen</h1>
               </ModalHeader>
               <ModalBody>
-                <Input type="text" label="Username" onChange={handleChange} />
+                <Input
+                  type="text"
+                  label="Username"
+                  isInvalid={isInvalidUsername}
+                  errorMessage={
+                    isInvalidUsername && 'Bitte gebe einen Username ein'
+                  }
+                  onChange={handleChange}
+                />
                 <RadioGroup
                   label="Gruppe auswählen"
+                  isInvalid={isInvalidGroup}
+                  errorMessage={isInvalidGroup && 'Bitte wähle eine Gruppe aus'}
                   onValueChange={setSelectedGroup}
                 >
                   {props.groups.map(group => (
@@ -107,12 +136,7 @@ export default function App(props) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Abbrechen
                 </Button>
-                <Button
-                  color="primary"
-                  variant="light"
-                  onPress={onClose}
-                  onClick={saveUser}
-                >
+                <Button color="primary" variant="light" onClick={handleSubmit}>
                   User speichern
                 </Button>
               </ModalFooter>

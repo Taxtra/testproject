@@ -1,6 +1,9 @@
 import prisma from '../../prisma/client';
 
 export default async function handler(req, res) {
+  if (!req.body.name || !req.body.groupRights)
+    res.status(500).json('Ein fehler ist aufgetreten');
+
   if (req.method === 'POST') {
     try {
       //Post new Group

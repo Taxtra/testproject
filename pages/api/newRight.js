@@ -1,6 +1,8 @@
 import prisma from '../../prisma/client';
 
 export default async function handler(req, res) {
+  if (!req.body.name) res.status(500).json('Ein fehler ist aufgetreten');
+
   if (req.method === 'POST') {
     try {
       //POST new right
