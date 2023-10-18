@@ -14,6 +14,7 @@ import {
 } from '@nextui-org/react';
 
 import { toast } from 'sonner';
+import { useGlobalContext } from '../Context/data';
 
 export default function App(props) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -24,6 +25,8 @@ export default function App(props) {
 
   const [isInvalidName, setIsInvalidName] = useState(false);
   const [isInvalidRights, setIsInvalidRights] = useState(false);
+
+  const { refetch } = useGlobalContext();
 
   const handleChange = event => {
     setGroupName(event.target.value);
@@ -44,6 +47,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('Gruppe erfolgreich gespeichert!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }
@@ -63,6 +67,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('Gruppe erfolgreich gelöscht!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }

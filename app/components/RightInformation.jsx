@@ -10,9 +10,12 @@ import {
 } from '@nextui-org/react';
 
 import { toast } from 'sonner';
+import { useGlobalContext } from '../Context/data';
 
 export default function App(props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const { refetch } = useGlobalContext();
 
   const deleteRight = async () => {
     await fetch(`/api/deleteRight`, {
@@ -27,6 +30,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('Recht erfolgreich gelöscht');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }

@@ -16,7 +16,7 @@ import {
   Radio,
   RadioGroup,
 } from '@nextui-org/react';
-
+import { useGlobalContext } from '../Context/data';
 import { toast } from 'sonner';
 
 export default function App(props) {
@@ -31,13 +31,15 @@ export default function App(props) {
 
   const [username, setUsername] = useState('');
 
+  const { rights, groups, refetch } = useGlobalContext();
+
   const handleChange = event => {
     setUsername(event.target.value);
   };
 
   useEffect(() => {
-    setCurrentGroup(props.groups.find(group => group.id === selectedGroup));
-  }, [selectedGroup, props.group]);
+    setCurrentGroup(groups.find(group => group.id === selectedGroup));
+  }, [selectedGroup, groups]);
 
   const saveUser = async () => {
     await fetch('/api/newUser', {
@@ -54,6 +56,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('User erfolgreich erstellt!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }
@@ -104,7 +107,7 @@ export default function App(props) {
                   errorMessage={isInvalidGroup && 'Bitte wähle eine Gruppe aus'}
                   onValueChange={setSelectedGroup}
                 >
-                  {props.groups.map(group => (
+                  {groups.map(group => (
                     <Radio value={group.id} key={group.id}>
                       {group.name}
                     </Radio>
@@ -125,7 +128,7 @@ export default function App(props) {
                   label="Weitere Brechtigungen auswählen"
                   onValueChange={setSelectedRights}
                 >
-                  {props.rights.map(right => (
+                  {rights.map(right => (
                     <Checkbox value={right.id} key={right.id}>
                       {right.name}
                     </Checkbox>

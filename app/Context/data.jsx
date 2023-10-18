@@ -49,9 +49,9 @@ const getRights = async () => {
 };
 
 const GlobalContext = createContext({
-  user: '',
-  groups: '',
-  rights: '',
+  user: [],
+  groups: [],
+  rights: [],
 });
 
 export const GlobalContextProvider = ({ children }) => {

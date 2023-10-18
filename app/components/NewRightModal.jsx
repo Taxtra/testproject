@@ -13,6 +13,7 @@ import {
   Input,
 } from '@nextui-org/react';
 
+import { useGlobalContext } from '../Context/data';
 import { toast } from 'sonner';
 
 export default function App(props) {
@@ -20,6 +21,8 @@ export default function App(props) {
   const [newRight, setNewRight] = useState('');
 
   const [isInvalid, setIsInvalid] = useState(false);
+
+  const { refetch } = useGlobalContext();
 
   const handleChange = event => {
     setNewRight(event.target.value);
@@ -38,6 +41,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('Recht erfolgreich erstellt!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }

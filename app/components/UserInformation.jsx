@@ -15,6 +15,7 @@ import {
 } from '@nextui-org/react';
 
 import { toast } from 'sonner';
+import { useGlobalContext } from '../Context/data';
 
 export default function App(props) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -25,6 +26,8 @@ export default function App(props) {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
 
   const [username, setUsername] = useState(props.name);
+
+  const { refetch } = useGlobalContext();
 
   const handleChange = event => {
     setUsername(event.target.value);
@@ -50,6 +53,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('User erfolgreich überarbeitet');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }
@@ -69,6 +73,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('User erfolgreich gelöscht!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }

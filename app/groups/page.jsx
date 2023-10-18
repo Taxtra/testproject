@@ -4,8 +4,6 @@ import NewGroupModal from '../components/NewGroupModal';
 import GroupCardHandler from './GroupCardHandler';
 
 const Groups = async () => {
-  //
-
   return (
     <main className="flex">
       <div>

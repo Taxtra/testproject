@@ -1,27 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Sidebar from '../components/Sidebar';
-import RightCard from '../components/RightCard';
 import NewRightModal from '../components/NewRightModal';
-
-const getRights = async () => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getRights`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    const rights = await res?.json();
-    return rights;
-  } catch (err) {
-    console.error(err);
-  }
-};
+import RightCardHandler from './RightCardHandler';
 
 const Rights = async () => {
-  const rights = await getRights();
-
   return (
     <main className="flex">
       <div>
@@ -32,9 +14,9 @@ const Rights = async () => {
       </div>
       <div className="flex items-center justify-center flex-1 h-screen ml-64">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {rights?.map(right => (
-            <RightCard name={right.name} id={right.id} key={right.id} />
-          ))}
+          <Suspense fallback={<h1>Loading</h1>}>
+            <RightCardHandler />
+          </Suspense>
         </div>
       </div>
     </main>

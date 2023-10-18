@@ -27,7 +27,7 @@ export default function App(props) {
 
   const [groupName, setGroupName] = useState('');
 
-  const { rights } = useGlobalContext();
+  const { rights, refetch } = useGlobalContext();
 
   const handleChange = event => {
     setGroupName(event.target.value);
@@ -53,6 +53,7 @@ export default function App(props) {
     }).then(function (response) {
       if (response.ok) {
         toast.success('Gruppe erfolgreich erstellt!');
+        refetch();
       } else {
         toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut');
       }

@@ -1,81 +1,19 @@
 import Sidebar from './components/Sidebar';
-import UserCard from './components/UserCard';
 import NewUserModal from './components/NewUserModal';
-
-const getUsers = async () => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getUser`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    const users = await res?.json();
-    return users;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const getGroups = async () => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getGroups`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    const groups = await res?.json();
-    return groups;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const getRights = async () => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getRights`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    const rights = await res?.json();
-    return rights;
-  } catch (err) {
-    console.error(err);
-  }
-};
+import UserCardHandler from './UserCardHandler';
 
 export default async function Home() {
-  const users = await getUsers();
-  const groups = await getGroups();
-  const rights = await getRights();
-
   return (
     <main className="flex">
       <div>
         <Sidebar />
       </div>
       <div className="absolute top-5 right-4">
-        <NewUserModal groups={groups} rights={rights} />
+        <NewUserModal />
       </div>
       <div className="flex items-center justify-center flex-1 h-screen ml-64">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {users?.map(user => (
-            <UserCard
-              key={user.id}
-              name={user.username}
-              userRights={user.rights}
-              id={user.id}
-              group={groups?.find(group => group.id === user.groupId)}
-              groups={groups}
-              rights={rights}
-            />
-          ))}
+          <UserCardHandler />
         </div>
       </div>
     </main>
