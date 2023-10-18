@@ -10,7 +10,7 @@ const GroupCardHandler = () => {
   const { groups, rights, refetch } = useGlobalContext();
 
   useEffect(() => {
-    refetch();
+    if (groups.length === 0) refetch();
   }, []);
 
   if (groups.length !== 0) {
