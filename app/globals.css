@@ -1,13 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --primary: #2a85ff;
-  --light: #f6f6f6;
-  --dark: #23252c;
-}
-
-body {
-  color: var(--light);
-}
